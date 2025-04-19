@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-
+from registro_trader import RegistroTrader
+registro = RegistroTrader()
 app = Flask(__name__)
 
 @app.route('/')
@@ -15,6 +16,7 @@ def webhook():
         print("Ejecutar orden de COMPRA simulada")
     elif data.get('signal') == 'sell':
         print("Ejecutar orden de VENTA simulada")
+        registro.registrar_operacion('BTC/USDT', 'compra', 28000.0, 28500.0)
     else:
         print("Señal desconocida")
 
@@ -22,3 +24,4 @@ def webhook():
 
 if __name__ == '__main__':
     app.run()
+    Agregué el import del registro de operaciones
